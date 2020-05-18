@@ -1,4 +1,4 @@
-module go-epgstation
+module github.com/ikasamt/go-epgstation
 
 go 1.13
 
