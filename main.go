@@ -2,8 +2,9 @@ package main
 
 import (
 	"flag"
-	"go-epgstation/pkg"
 	"log"
+
+	"github.com/ikasamt/go-epgstation/pkg"
 
 	"github.com/gin-gonic/gin"
 )
