@@ -1,0 +1,10 @@
+version: '3'
+services:
+    golang:
+      image: golang
+      volumes:
+        - .:/go/src
+      working_dir: /go/src
+      command: sh -c "make run"
+      ports:
+        - "3001:3001"
