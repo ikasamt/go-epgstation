@@ -54,8 +54,8 @@ func (x Video) End() string {
 
 func (x Video) VideoURL() string {
 	if len(x.Encoded) > 0 {
-		return fmt.Sprintf("/video/%d", x.ID)
-		//return fmt.Sprintf(ServerHost+"/api/recorded/%d/file?encodedId=%d", x.ID, x.Encoded[0].EncodedID)
+		//return fmt.Sprintf("/video/%d", x.ID)
+		return fmt.Sprintf(ServerHost+"/api/recorded/%d/file?encodedId=%d", x.ID, x.Encoded[0].EncodedID)
 	}
 	return ""
 }
