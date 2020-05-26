@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"encoding/json"
 	"fmt"
 	_ "image/jpeg"
 	"io"
@@ -31,3 +32,10 @@ func VideoServeHandler(c *gin.Context) {
 	fileName := filepath.Join(HDDBase, key)
 	http.ServeFile(c.Writer, c.Request, fileName)
 }
+
+
+
+func RemoveHandler(c *gin.Context) {
+	id:= c.PostForm(`ID`)
+}
+
