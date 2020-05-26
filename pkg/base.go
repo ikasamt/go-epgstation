@@ -2,7 +2,10 @@ package pkg
 
 import (
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"log"
+	"net/http"
 )
 
 var ServerHost string
@@ -14,7 +17,7 @@ var CachedChannel []Channel
 func APIGetRecorded(limit int, offset int) (response VideoResponse) {
 	ba := APIGet(`recorded`, map[string]interface{}{"limit": limit, "offset": offset})
 	if err := json.Unmarshal(ba, &response); err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	return response
 }
@@ -26,28 +29,29 @@ func SetCacheVideoResponse() {
 	}
 }
 
-
 type DeleteResponse struct {
-       Code int
+	Code int
 }
 
 func APIRemoveRecorded(key int) (err error, response DeleteResponse) {
-       // curl -X DELETE "/api/recorded/1529" -H "accept: application/json"
-       rawurl := fmt.Sprintf(ServerHost+"/api/recorded/%d", key)
+	// curl -X DELETE "/api/recorded/1529" -H "accept: application/json"
+	rawurl := fmt.Sprintf("%s/api/recorded/%d", ServerHost, key)
 
-       client := &http.Client{}
-       log.Println(rawurl)
-       req, err := http.NewRequest("DELETE", rawurl, nil)
-       if err != nil {
-               fmt.Println(err)
-               return
-       }
+	client := &http.Client{}
+	req, err := http.NewRequest("DELETE", rawurl, nil)
+	if err != nil {
+		return
+	}
 
-       resp, err := client.Do(req)
-       if err != nil {
-               return err, response
-       }
-       defer resp.Body.Close()
+	resp, err := client.Do(req)
+	if err != nil {
+		return err, response
+	}
+	defer resp.Body.Close()
 
-       byteArray, _ := ioutil.ReadAll(resp.Body)
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	if err := json.Unmarshal(byteArray, &response); err != nil {
+		return err, response
+	}
+	return err, response
 }

@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -30,4 +31,19 @@ func VideoServeHandler(c *gin.Context) {
 	key := c.Query("Key")
 	fileName := filepath.Join(HDDBase, key)
 	http.ServeFile(c.Writer, c.Request, fileName)
+}
+
+func APIRemoveHandler(c *gin.Context) {
+	idStr := c.Param("ID")
+	id_, _ := strconv.Atoi(idStr)
+	err, response := APIRemoveRecorded(id_)
+	if err != nil {
+		log.Println(err)
+		c.JSON(200, gin.H{"err": err})
+		return
+	}
+
+	c.JSON(200, response)
+	return
+
 }

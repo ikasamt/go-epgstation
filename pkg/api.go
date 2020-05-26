@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func APIGet(path string, params map[string]interface{}) []byte {
+func APIGet(path_ string, params map[string]interface{}) []byte {
 	paramsList := []string{}
 	for k, v := range params {
 		var s string
@@ -22,7 +22,7 @@ func APIGet(path string, params map[string]interface{}) []byte {
 	}
 	queryStr := strings.Join(paramsList, "&")
 
-	rawurl := fmt.Sprintf(ServerHost+"/api/%s?%s", path, queryStr)
+	rawurl := fmt.Sprintf("%s/api/%s?%s", ServerHost, path_, queryStr)
 	log.Println(rawurl)
 	resp, err := http.Get(rawurl)
 	if err != nil {
