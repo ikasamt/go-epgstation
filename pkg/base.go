@@ -25,3 +25,29 @@ func SetCacheVideoResponse() {
 		CachedResponse = APIGetRecorded(10000, 0)
 	}
 }
+
+
+type DeleteResponse struct {
+       Code int
+}
+
+func APIRemoveRecorded(key int) (err error, response DeleteResponse) {
+       // curl -X DELETE "/api/recorded/1529" -H "accept: application/json"
+       rawurl := fmt.Sprintf(ServerHost+"/api/recorded/%d", key)
+
+       client := &http.Client{}
+       log.Println(rawurl)
+       req, err := http.NewRequest("DELETE", rawurl, nil)
+       if err != nil {
+               fmt.Println(err)
+               return
+       }
+
+       resp, err := client.Do(req)
+       if err != nil {
+               return err, response
+       }
+       defer resp.Body.Close()
+
+       byteArray, _ := ioutil.ReadAll(resp.Body)
+}
