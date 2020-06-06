@@ -25,7 +25,7 @@ func APIGetRecorded(limit int, offset int) (response VideoResponse) {
 func SetCacheVideoResponse() {
 	tmp := APIGetRecorded(1, 0)
 	if CachedResponse.Total != tmp.Total {
-		CachedResponse = APIGetRecorded(10000, 0)
+		CachedResponse = APIGetRecorded(100000, 0)
 	}
 }
 
