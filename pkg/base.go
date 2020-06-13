@@ -22,6 +22,15 @@ func APIGetRecorded(limit int, offset int) (response VideoResponse) {
 	return response
 }
 
+func APIGetRecordedOne(videoID int) (response Video) {
+	path := fmt.Sprintf(`recorded/%d`, videoID)
+	ba := APIGet(path, map[string]interface{}{})
+	if err := json.Unmarshal(ba, &response); err != nil {
+		log.Println(err)
+	}
+	return response
+}
+
 func SetCacheVideoResponse() {
 	tmp := APIGetRecorded(1, 0)
 	if CachedResponse.Total != tmp.Total {
