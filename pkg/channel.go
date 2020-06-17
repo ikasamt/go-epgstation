@@ -5,6 +5,7 @@ import (
 	"log"
 )
 
+// +jam ../clefs/struct_slicer.go
 type Channel struct {
 	ID            int64  `json:"id"`
 	ServiceID     int    `json:"serviceId"`
@@ -17,7 +18,7 @@ type Channel struct {
 	Type          int    `json:"type"`
 }
 
-func APIGETChannel() (response []Channel) {
+func APIGETChannel() (response Channels) {
 	ba := APIGet(`channels`, map[string]interface{}{})
 	if err := json.Unmarshal(ba, &response); err != nil {
 		log.Println(err)

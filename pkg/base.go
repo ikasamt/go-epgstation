@@ -12,7 +12,7 @@ var ServerHost string
 var HDDBase string
 
 var CachedResponse VideoResponse
-var CachedChannel []Channel
+var CachedChannel Channels
 
 func APIGetRecorded(limit int, offset int) (response VideoResponse) {
 	ba := APIGet(`recorded`, map[string]interface{}{"limit": limit, "offset": offset})

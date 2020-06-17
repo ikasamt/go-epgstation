@@ -1,7 +1,7 @@
 version: '3'
 services:
     golang:
-      image: golang
+      build: .
       volumes:
         - .:/go/src
       working_dir: /go/src

@@ -1,5 +1,6 @@
 package pkg
 
+// +jam ../clefs/struct_slicer.go
 type Encoded struct {
 	EncodedID int    `json:"encodedId"`
 	Name      string `json:"name"`
@@ -7,6 +8,7 @@ type Encoded struct {
 	Filesize  int64  `json:"filesize"`
 }
 
+// +jam ../clefs/struct_slicer.go
 type EncodedProgram struct {
 	ID                 int    `json:"id"`
 	ProgramID          int64  `json:"programId"`
@@ -40,17 +42,17 @@ type EncodedProgram struct {
 }
 
 type EncodedEncoding struct {
-	ID         string           `json:"id"`
-	Name       string           `json:"name"`
-	RecordedID int              `json:"recordedId"`
-	Program    []EncodedProgram `json:"program"`
-	Mode       int              `json:"mode"`
+	ID         string          `json:"id"`
+	Name       string          `json:"name"`
+	RecordedID int             `json:"recordedId"`
+	Program    EncodedPrograms `json:"program"`
+	Mode       int             `json:"mode"`
 }
 
 type EncodedQueue struct {
-	ID         string           `json:"id"`
-	Name       string           `json:"name"`
-	RecordedID int              `json:"recordedId"`
-	Program    []EncodedProgram `json:"program"`
-	Mode       int              `json:"mode"`
+	ID         string          `json:"id"`
+	Name       string          `json:"name"`
+	RecordedID int             `json:"recordedId"`
+	Program    EncodedPrograms `json:"program"`
+	Mode       int             `json:"mode"`
 }
