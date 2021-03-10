@@ -1,11 +1,15 @@
 package pkg
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 func APIGet(path_ string, params map[string]interface{}) []byte {
@@ -33,4 +37,22 @@ func APIGet(path_ string, params map[string]interface{}) []byte {
 	byteArray, _ := ioutil.ReadAll(resp.Body)
 
 	return byteArray
+}
+
+func APIPOSTEncoded(ID int) int {
+	rawurl := fmt.Sprintf("%s/api/recorded/%d/encode", ServerHost, ID)
+	values, _ := json.Marshal(gin.H{
+		"mode":                         0,
+		"isOutputTheOriginalDirectory": true,
+		"delTs":                        true})
+
+	log.Println(rawurl)
+
+	resp, err := http.Post(rawurl, "application/json", bytes.NewBuffer(values))
+	if err != nil {
+		log.Println(err)
+	}
+	defer resp.Body.Close()
+
+	return resp.StatusCode
 }

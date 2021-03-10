@@ -47,8 +47,40 @@ func APIRemoveHandler(c *gin.Context) {
 	return
 }
 
+func contains(s []int, e int) bool {
+	for _, v := range s {
+		if e == v {
+			return true
+		}
+	}
+	return false
+}
+
 func APIEncodedHandler(c *gin.Context) {
+	videos := CachedResponse.Videos.Where(func(x Video) bool {
+		return len(x.Encoded) == 0
+	})
+
+	videosIDs := []int{}
 	response := APIGETEncoded()
-	c.JSON(200, response)
+	videosIDs = append(videosIDs, response.Encoding.Program.ID)
+	for _, v := range response.Queue {
+		videosIDs = append(videosIDs, v.Program.ID)
+	}
+
+	cnt := len(response.Queue)
+
+	for _, v := range videos {
+		if cnt > 10 {
+			c.JSON(200, cnt)
+			return
+		}
+
+		if !contains(videosIDs, v.ID) {
+			APIPOSTEncoded(v.ID)
+			cnt++
+		}
+	}
+
 	return
 }
