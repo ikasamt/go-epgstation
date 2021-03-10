@@ -165,18 +165,18 @@ func (anythings Encodeds) Mapper(f func(anything Encoded) Encoded) (result Encod
 	return
 }
 
-type EncodedPrograms []EncodedProgram
+type EncodedQueues []EncodedQueue
 
 // First is ..
-func (anythings EncodedPrograms) First() (EncodedProgram, bool) {
+func (anythings EncodedQueues) First() (EncodedQueue, bool) {
 	if len(anythings) == 0 {
-		return EncodedProgram{}, false
+		return EncodedQueue{}, false
 	}
 	return anythings[0], true
 }
 
 // Where is ..
-func (anythings EncodedPrograms) Where(f func(anything EncodedProgram) bool) (result EncodedPrograms) {
+func (anythings EncodedQueues) Where(f func(anything EncodedQueue) bool) (result EncodedQueues) {
 	for _, a := range anythings {
 		if f(a) {
 			result = append(result, a)
@@ -186,12 +186,12 @@ func (anythings EncodedPrograms) Where(f func(anything EncodedProgram) bool) (re
 }
 
 // Count is ..
-func (anythings EncodedPrograms) Count() (counter int) {
+func (anythings EncodedQueues) Count() (counter int) {
 	return len(anythings)
 }
 
 // CountIf is ..
-func (anythings EncodedPrograms) CountIf(f func(anything EncodedProgram) bool) (counter int) {
+func (anythings EncodedQueues) CountIf(f func(anything EncodedQueue) bool) (counter int) {
 	for _, a := range anythings {
 		if f(a) {
 			counter++
@@ -201,7 +201,7 @@ func (anythings EncodedPrograms) CountIf(f func(anything EncodedProgram) bool) (
 }
 
 // Select is ..
-func (anythings EncodedPrograms) Select(fieldName string) (result typeslicer.InterfaceSlice) {
+func (anythings EncodedQueues) Select(fieldName string) (result typeslicer.InterfaceSlice) {
 	for _, a := range anythings {
 		i := reflect.ValueOf(a).FieldByName(fieldName).Interface()
 		result = append(result, i)
@@ -210,22 +210,22 @@ func (anythings EncodedPrograms) Select(fieldName string) (result typeslicer.Int
 }
 
 // SortBy is ..
-func (anythings EncodedPrograms) SortBy(sortFunc func(EncodedProgram, EncodedProgram) bool) (result EncodedPrograms) {
+func (anythings EncodedQueues) SortBy(sortFunc func(EncodedQueue, EncodedQueue) bool) (result EncodedQueues) {
 	f := func(i, j int) bool {
 		a := anythings[i]
 		b := anythings[j]
 		return sortFunc(a, b)
 	}
 
-	tmp := make(EncodedPrograms, len(anythings))
+	tmp := make(EncodedQueues, len(anythings))
 	copy(tmp, anythings)
 	sort.Slice(tmp, f)
 	return tmp
 }
 
 // DistinctBy is ..
-func (anythings EncodedPrograms) DistinctBy(f func(anything EncodedProgram) interface{}) (result EncodedPrograms) {
-	tmp := map[interface{}]EncodedProgram{}
+func (anythings EncodedQueues) DistinctBy(f func(anything EncodedQueue) interface{}) (result EncodedQueues) {
+	tmp := map[interface{}]EncodedQueue{}
 	for _, a := range anythings {
 		tmp[f(a)] = a
 	}
@@ -235,7 +235,84 @@ func (anythings EncodedPrograms) DistinctBy(f func(anything EncodedProgram) inte
 	return
 }
 
-func (anythings EncodedPrograms) Mapper(f func(anything EncodedProgram) EncodedProgram) (result EncodedPrograms) {
+func (anythings EncodedQueues) Mapper(f func(anything EncodedQueue) EncodedQueue) (result EncodedQueues) {
+	for _, a := range anythings {
+		result = append(result, f(a))
+	}
+	return
+}
+
+type Encodings []Encoding
+
+// First is ..
+func (anythings Encodings) First() (Encoding, bool) {
+	if len(anythings) == 0 {
+		return Encoding{}, false
+	}
+	return anythings[0], true
+}
+
+// Where is ..
+func (anythings Encodings) Where(f func(anything Encoding) bool) (result Encodings) {
+	for _, a := range anythings {
+		if f(a) {
+			result = append(result, a)
+		}
+	}
+	return
+}
+
+// Count is ..
+func (anythings Encodings) Count() (counter int) {
+	return len(anythings)
+}
+
+// CountIf is ..
+func (anythings Encodings) CountIf(f func(anything Encoding) bool) (counter int) {
+	for _, a := range anythings {
+		if f(a) {
+			counter++
+		}
+	}
+	return
+}
+
+// Select is ..
+func (anythings Encodings) Select(fieldName string) (result typeslicer.InterfaceSlice) {
+	for _, a := range anythings {
+		i := reflect.ValueOf(a).FieldByName(fieldName).Interface()
+		result = append(result, i)
+	}
+	return
+}
+
+// SortBy is ..
+func (anythings Encodings) SortBy(sortFunc func(Encoding, Encoding) bool) (result Encodings) {
+	f := func(i, j int) bool {
+		a := anythings[i]
+		b := anythings[j]
+		return sortFunc(a, b)
+	}
+
+	tmp := make(Encodings, len(anythings))
+	copy(tmp, anythings)
+	sort.Slice(tmp, f)
+	return tmp
+}
+
+// DistinctBy is ..
+func (anythings Encodings) DistinctBy(f func(anything Encoding) interface{}) (result Encodings) {
+	tmp := map[interface{}]Encoding{}
+	for _, a := range anythings {
+		tmp[f(a)] = a
+	}
+	for _, t := range tmp {
+		result = append(result, t)
+	}
+	return
+}
+
+func (anythings Encodings) Mapper(f func(anything Encoding) Encoding) (result Encodings) {
 	for _, a := range anythings {
 		result = append(result, f(a))
 	}

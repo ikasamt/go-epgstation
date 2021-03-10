@@ -48,6 +48,7 @@ func main() {
 	r.GET("/jpeg/:ID", pkg.JPEGIndexHandler)
 	r.GET("/mp4/:Key", pkg.VideoServeHandler)
 	r.GET("/api/remove/:ID", pkg.APIRemoveHandler)
+	r.GET("/api/encoded", pkg.APIEncodedHandler)
 
 	r.Run("0.0.0.0:3001")
 }

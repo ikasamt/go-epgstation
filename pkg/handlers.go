@@ -45,5 +45,10 @@ func APIRemoveHandler(c *gin.Context) {
 
 	c.JSON(200, response)
 	return
+}
 
+func APIEncodedHandler(c *gin.Context) {
+	response := APIGETEncoded()
+	c.JSON(200, response)
+	return
 }
