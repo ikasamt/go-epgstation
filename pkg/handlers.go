@@ -57,6 +57,11 @@ func contains(s []int, e int) bool {
 }
 
 func APIEncodedHandler(c *gin.Context) {
+	cnt := APIEncoded(10)
+	c.JSON(200, cnt)
+}
+
+func APIEncoded(maxCnt int) int {
 	videos := CachedResponse.Videos.Where(func(x Video) bool {
 		return len(x.Encoded) == 0
 	})
@@ -72,8 +77,7 @@ func APIEncodedHandler(c *gin.Context) {
 
 	for _, v := range videos {
 		if cnt > 10 {
-			c.JSON(200, cnt)
-			return
+			return cnt
 		}
 
 		if !contains(videosIDs, v.ID) {
@@ -81,6 +85,5 @@ func APIEncodedHandler(c *gin.Context) {
 			cnt++
 		}
 	}
-
-	return
+	return cnt
 }
