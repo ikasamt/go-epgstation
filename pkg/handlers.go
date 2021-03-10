@@ -76,7 +76,7 @@ func APIEncoded(maxCnt int) int {
 	cnt := len(response.Queue)
 
 	for _, v := range videos {
-		if cnt > 10 {
+		if cnt > maxCnt {
 			return cnt
 		}
 
