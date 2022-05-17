@@ -2,6 +2,6 @@ package pkg
 
 //
 type VideoResponse struct {
-	Videos Videos `json:"recorded"`
+	Videos Videos `json:"records"`
 	Total  int    `json:"total"`
 }
