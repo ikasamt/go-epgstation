@@ -15,7 +15,7 @@ var CachedResponse VideoResponse
 var CachedChannel Channels
 
 func APIGetRecorded(limit int, offset int) (response VideoResponse) {
-	ba := APIGet(`recorded`, map[string]interface{}{"limit": limit, "offset": offset})
+	ba := APIGet(`recorded`, map[string]interface{}{"isHalfWidth": "true", "limit": limit, "offset": offset})
 	if err := json.Unmarshal(ba, &response); err != nil {
 		log.Println(err)
 	}
