@@ -36,7 +36,7 @@ type Video struct {
 	HasThumbnail       bool     `json:"hasThumbnail"`
 	Original           bool     `json:"original"`
 	Filename           string   `json:"filename"`
-	Encoded            Encodeds `json:"encoded"`
+	Encoded            Encodeds `json:"videoFiles"`
 }
 
 func (x Video) Duration() int {
