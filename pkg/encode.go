@@ -10,7 +10,7 @@ type Encoded struct {
 	EncodedID int    `json:"encodedId"`
 	Name      string `json:"name"`
 	Filename  string `json:"filename"`
-	Filesize  int64  `json:"filesize"`
+	Filesize  int64  `json:"size"`
 }
 
 // +jam ../clefs/struct_slicer.go
