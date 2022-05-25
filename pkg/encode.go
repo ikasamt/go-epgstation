@@ -97,7 +97,7 @@ type EncodedResponse struct {
 }
 
 func APIGETEncoded() (response EncodedResponse) {
-	ba := APIGet(`encode`, map[string]interface{}{})
+	ba := APIGet(`encode`, map[string]interface{}{"isHalfWidth": "true"})
 	if err := json.Unmarshal(ba, &response); err != nil {
 		log.Println(err)
 	}
