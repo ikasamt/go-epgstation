@@ -15,11 +15,11 @@ type Encoded struct {
 
 // +jam ../clefs/struct_slicer.go
 type Encoding struct {
-	ID        string  `json:"id"`
-	Mode      int     `json:"mode"`
-	Percent   float64 `json:"percent"`
-	Log       string  `json:"log"`
-	Recorded  Video   `json:"recorded"`
+	ID       int     `json:"id"`
+	Mode     int     `json:"mode"`
+	Percent  float64 `json:"percent"`
+	Log      string  `json:"log"`
+	Recorded Video   `json:"recorded"`
 }
 
 type EncodedResponse struct {
