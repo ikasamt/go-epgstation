@@ -63,12 +63,16 @@ func APIEncodedHandler(c *gin.Context) {
 
 	videosIDs := []int{}
 	response := APIGETEncoded()
-	videosIDs = append(videosIDs, response.Encoding.Program.ID)
-	for _, v := range response.Queue {
-		videosIDs = append(videosIDs, v.Program.ID)
+
+	for _, item := range response.RunningItems {
+		videosIDs = append(videosIDs, item.Recorded.ID)
 	}
 
-	cnt := len(response.Queue)
+	for _, item := range response.WaitItems {
+		videosIDs = append(videosIDs, item.Recorded.ID)
+	}
+
+	cnt := len(response.WaitItems)
 
 	for _, v := range videos {
 		if cnt > 10 {
